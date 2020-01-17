@@ -6,6 +6,12 @@
   </a>
  </p>
  
+<p>
+  O "Google maps de desenvolvedores". O usuário se cadastra com o nome, tecnologias que ele trabalha, link para o perfil do GitHub e latitude + longitude. Utiliza-se a aplicação Web para o cadastro, e o aplicativo mobile para buscar os devs por tecnologia, baseado em sua geolocalização.
+</p>
+ 
+ 
+ 
  ## Licença
 
 [MIT](./LICENSE) &copy; [Rocketseat](https://rocketseat.com.br/)
