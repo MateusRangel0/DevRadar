@@ -9,6 +9,7 @@ import api from '../services/api';
 function Main({ navigation }) {
     const [devs, setDevs] = useState([]);
     const [currentRegion, setCurrentRegion] = useState(null);
+    const [techs, setTechs] = useState('');
 
     useEffect(() => {
         async function loadInitialPosition() {
@@ -39,11 +40,11 @@ function Main({ navigation }) {
             params: {
                 latitude,
                 longitude,
-                techs: 'ReactJS'
+                techs
             }
         });
 
-        setDevs(response.data);
+        setDevs(response.data.devs);
     }
 
     function handleRegionChanged(region) {
@@ -61,26 +62,37 @@ function Main({ navigation }) {
         // Não posso ter dois elementos um abaixo do outro sem ter um container por fora -> fragment
         <>
             
-            <MapView onRegionChangeComplete={handleRegionChanged}
+            <MapView 
+              onRegionChangeComplete={handleRegionChanged}
               initialRegion={currentRegion}
               style={styles.map}
             >
-                <Marker coordinate={{ latitude: -7.2425696, longitude: -35.9008669 }}>
-                    <Image style={styles.avatar} source={{ uri: 'https://avatars3.githubusercontent.com/u/29546699?s=460&v=4' }}/>
+                {devs.map(dev => (
+                    <Marker
+                        key={dev._id}
+                        coordinate={{ 
+                            longitude: dev.location.coordinates[0],
+                            latitude: dev.location.coordinates[1], 
+                        }}
+                    >
+                    <Image 
+                        style={styles.avatar} 
+                        source={{ uri: dev.avatar_url }}
+                    />
 
                     <Callout onPress={() => {
                         // navegação
-                        navigation.navigate('Profile', { github_username: 'MateusRangel0' });
+                        navigation.navigate('Profile', { github_username: dev.github_username });
                     }}>
                         <View style={styles.callout}>
-                            <Text style={styles.devName}>Mateus Rangel</Text>
-                            <Text style={styles.devBio}>Computer Science graduating at Federal University of Campina Grande.</Text>
-                            <Text style={styles.devTechs}>ReactJS, React Native, Node.js</Text>
+                            <Text style={styles.devName}>{dev.name}</Text>
+                            <Text style={styles.devBio}>{dev.name}</Text>
+                            <Text style={styles.devTechs}>{dev.techs.join(', ')}</Text>
                         </View>
                     </Callout>
                 </Marker>
+                ))}
             </MapView>           
-            
             <View style={styles.searchForm}>
                 <TextInput
                     style={styles.searchInput}
@@ -88,6 +100,8 @@ function Main({ navigation }) {
                     placeholderTextColor="#999"
                     autoCapitalize="words"
                     autoCorrect={false}
+                    value={techs}
+                    onChangeText={setTechs}
                 />
                 <TouchableOpacity onPress={loadDevs} style={styles.loadButton}>
                        <MaterialIcons name="my-location" size={20} color="#FFF" />
