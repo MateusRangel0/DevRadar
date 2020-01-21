@@ -11,13 +11,12 @@
     <img src="https://img.shields.io/badge/expo--CLI-3.11.5-informational?logo=expo"></img>
   </a>
  </p> 
- 
-### O "Google maps de desenvolvedores". O usuário se cadastra com o nome, tecnologias que ele trabalha, link para o perfil do     GitHub e latitude + longitude. Utiliza-se a aplicação Web para o cadastro, e o aplicativo mobile para buscar os devs por tecnologia, baseado em sua geolocalização.
 
-### A ideia é facilitar o processo de conhecer novas pessoas, seja para trabalho ou apenas trocar conhecimento sobre tecnologias.
+<h1> Sobre o projeto </h1>
+
+O "Google maps de desenvolvedores". DevRadar é um projeto que visa facilitar o encontro entre desenvolvedores, por meio de geolocalização, seja para fins de trabalho ou mesmo para trocar conhecimento sobre tecnologias.
 
 
- 
  >*Author: [@MateusRangel0](https://github.com/MateusRangel0)*
  
  ## Licença
