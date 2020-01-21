@@ -15,8 +15,8 @@ mongoose.connect('mongodb+srv://mateusrangel:semana10@cluster0-qdqgt.mongodb.net
     useUnifiedTopology: true,
 });
 
-app.use(cors())
-app.use(express.json()); //tem que vir antes
+app.use(cors());
+app.use(express.json());
 app.use(routes);
 
 server.listen(3333);

@@ -3,7 +3,7 @@ const parseStringAsArray = require('./utils/parseStringAsArray');
 const calculateDistance = require('./utils/calculateDistance');
 
 let io;
-const connection = []; // Isso aqui deveria ser uma tabela no BD
+const connections = []; // Isso aqui deveria ser uma tabela no BD
 
 exports.setupWebsocket = (server) => {
     io = socketio(server);
@@ -11,7 +11,7 @@ exports.setupWebsocket = (server) => {
     io.on('connection', socket => {
         const { latitude, longitude, techs } = socket.handshake.query;
 
-        connection.push({
+        connections.push({
             id: socket.id,
             coordinates: {
                 latitude: Number(latitude),
