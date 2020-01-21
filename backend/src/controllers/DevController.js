@@ -43,14 +43,13 @@ module.exports = {
         // Filtrar as conexões que estão há, no máximo, 10km de distancia
         // e que o novo dev tenha pelo menos uma das tecnologias filtradas
 
-            const sendSocketMessageTo = findConnections(
-                { latitude, longitude },
-                techsArray,
-            )
-            sendMessage(sendSocketMessageTo, 'new-dev', dev)
-
+        const sendSocketMessageTo = findConnections(
+            { latitude, longitude },
+            techsArray,
+        )
+            
+        sendMessage(sendSocketMessageTo, 'new-dev', dev);            
         }
-
         // continuar
         return response.json(dev);
     }
