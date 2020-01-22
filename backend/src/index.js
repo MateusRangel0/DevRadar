@@ -18,5 +18,4 @@ mongoose.connect('mongodb+srv://mateusrangel:semana10@cluster0-qdqgt.mongodb.net
 app.use(cors());
 app.use(express.json());
 app.use(routes);
-
 server.listen(3333);

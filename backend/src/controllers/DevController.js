@@ -3,8 +3,6 @@ const Dev = require('../models/Dev');
 const parseStringAsArray = require('../utils/parseStringAsArray');
 const { findConnections, sendMessage } = require('../websocket');
 
-// index, show, store, update, destroy
-
 module.exports = {
     async index(request, response) {
         const devs = await Dev.find();
@@ -52,7 +50,40 @@ module.exports = {
         }
         // continuar
         return response.json(dev);
+    },
+
+    // Nao entendo como isso funciona muito bem
+    // Caso seja necessario, revisar
+    async update(request, response) {
+        const { github } = request.params;
+        const dev = await Dev.findOne({ github });
+        const { latitude, longitude, techs, ...rest } = request.body;
+        rest.github = github;
+        if(latitude && longitude) {
+            var newLocation = {
+                type: 'Point',
+                coordinates: [longitude, latitude]
+            }
+        }
+        if(techs) var techsArray = parseStringAsArray(techs)
+
+        const newDev = await Dev.updateOne({ github }, {
+            location: (latitude&&longitude) ? newLocation: dev.location,
+            techs: techs? techsArray : dev.techs,
+            ...rest
+        });
+
+        return rest.json({
+            modifiedCount: newDev.nModified,
+            ok: newDev.ok
+        });
+    },
+
+    async delete(request, response) {
+        const { github } = request.params;
+        await Dev.deleteOne({ github });
+        const devs = await Dev.find();
+        return response.json(devs);
     }
 
-    //TODO update and destroy
 };
